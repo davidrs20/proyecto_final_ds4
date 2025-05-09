@@ -25,4 +25,20 @@ for archivo in os.listdir(areas_path):
                 if area not in revistas[revista]["areas"]:
                     revistas[revista]["areas"].append(area)
 
+# Leer archivos de catálogos
+for archivo in os.listdir(catalogos_path):
+    if archivo.endswith(".csv"):
+        catalogo = archivo[:-4].upper()
+        with open(os.path.join(catalogos_path, archivo), 'r', encoding='utf-8') as f:
+            lector = csv.reader(f)
+            for fila in lector:
+                if not fila: continue
+                revista = fila[0].strip().lower()
+                if revista not in revistas:
+                    revistas[revista] = {"areas": [], "catalogos": []}
+                if catalogo not in revistas[revista]["catalogos"]:
+                    revistas[revista]["catalogos"].append(catalogo)
+
+
+
 
