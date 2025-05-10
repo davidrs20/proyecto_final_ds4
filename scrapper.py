@@ -12,7 +12,7 @@ SCIMAGO_BASE_URL = 'https://www.scimagojr.com'
 SEARCH_URL = SCIMAGO_BASE_URL + '/journalsearch.php?q='
 INPUT_JSON = 'datos/json/revistas.json'
 OUTPUT_JSON = 'datos/json/revistas_scimagojr.json'
-MAX_REVISTAS = 5  # Limitar a 100 nuevas
+MAX_REVISTAS = 31136  # Cambia este valor si necesitas otro límite
 
 # Cargar revistas ya obtenidas
 if os.path.exists(OUTPUT_JSON):
@@ -35,6 +35,26 @@ def find_journal_url(journal_title):
         return SCIMAGO_BASE_URL + '/' + result.find_parent('a')['href']
     return None
 
+def obtenerimagen(soup):
+    try:
+        img = soup.find('img', class_='imgwidget')
+        if img and 'src' in img.attrs:
+            return 'https://www.scimagojr.com/' + img['src']
+    except Exception as e:
+        print(f"Error al extraer imagen: {e}")
+    return None
+
+def extract_subject_area(soup):
+    section = soup.find("h2", string="Subject Area and Category")
+    if not section:
+        return None
+    table = section.find_next("table")
+    if not table:
+        return None
+    items = table.find_all("td")
+    categories = [td.get_text(strip=True) for td in items if td]
+    return ', '.join(categories)
+
 def scrape_journal_data(url):
     soup = BeautifulSoup(scrap(url).text, 'html.parser')
 
@@ -42,72 +62,55 @@ def scrape_journal_data(url):
     try:
         h_index_section = soup.find('h2', string=lambda s: s and 'H-Index' in s)
         h_index = h_index_section.find_next_sibling('p').text.strip() if h_index_section else None
-    except:
+    except Exception as e:
+        print(f"Error al extraer H-Index: {e}")
         h_index = None
 
     # Obtener Homepage
     try:
         homepage_section = soup.find('a', string='Homepage')
         homepage_link = homepage_section['href'] if homepage_section else None
-    except:
+    except Exception as e:
+        print(f"Error al extraer Homepage: {e}")
         homepage_link = None
-
-    # Obtener Subject Area and Category
-    try:
-        section = soup.find("h2", string="Subject Area and Category")
-        if section:
-            table = section.find_next("table")
-            if table:
-                items = table.find_all("td")
-                subject_area_category = ', '.join(td.get_text(strip=True) for td in items if td)
-            else:
-                subject_area_category = None
-        else:
-            subject_area_category = None
-    except:
-        subject_area_category = None
-
 
     # Obtener Publisher
     try:
         publisher_section = soup.find('h2', string=lambda s: s and 'Publisher' in s)
         publisher = publisher_section.find_next_sibling('p').text.strip() if publisher_section else None
-    except:
+    except Exception as e:
+        print(f"Error al extraer Publisher: {e}")
         publisher = None
 
     # Obtener ISSN
     try:
         issn_section = soup.find('h2', string=lambda s: s and 'ISSN' in s)
         issn = issn_section.find_next_sibling('p').text.strip() if issn_section else None
-    except:
+    except Exception as e:
+        print(f"Error al extraer ISSN: {e}")
         issn = None
 
-    # Obtener Widget
-    try:
-        iframe = soup.find('iframe')
-        widget_url = iframe['src'] if iframe and 'widget' in iframe['src'] else None
-    except:
-        widget_url = None
-
+    # Obtener imagen del widget
+    widget_url = obtenerimagen(soup)
 
     # Obtener Publication Type
     try:
         publication_type_section = soup.find('h2', string=lambda s: s and 'Publication type' in s)
         publication_type = publication_type_section.find_next_sibling('p').text.strip() if publication_type_section else None
-    except:
+    except Exception as e:
+        print(f"Error al extraer Publication type: {e}")
         publication_type = None
 
     return {
         "site": homepage_link,
         "h_index": h_index,
-        "subject_area_category": subject_area_category,
+        "subject_area_category": extract_subject_area(soup),
         "publisher": publisher,
         "issn": issn,
         "widget": widget_url,
         "publication_type": publication_type,
         "url": url
     }
-
 
 # Cargar títulos a procesar
 with open(INPUT_JSON, 'r', encoding='utf-8') as f:
@@ -120,7 +123,7 @@ for revista in revistas_input:
         continue
 
     if procesadas >= MAX_REVISTAS:
-        print("🚫 Límite de 100 revistas alcanzado.")
+        print(f"🚫 Límite de {MAX_REVISTAS} revistas alcanzado.")
         break
 
     print(f"→ Buscando: {revista}")
