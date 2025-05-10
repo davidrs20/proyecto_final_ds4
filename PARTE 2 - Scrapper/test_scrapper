@@ -1,0 +1,6 @@
+from scraper import get_journal_data
+
+# Prueba con un ISSN real
+issn = "0036-8075"  # Science
+journal_data = get_journal_data(issn)
+print(journal_data)
