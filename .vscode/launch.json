@@ -1,0 +1,26 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python Debugger: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    }
+  ],
+  "inputs": [
+    {
+      "type": "pickString",
+      "id": "pythonFile",
+      "description": "Select the Python file to debug",
+      "options": [
+        "csv_a_json.py",
+        "PARTE 2 - Scrapper/SCRAPPER_EJEMPLO_CLASE.py"
+      ]
+    }
+  ]
+}

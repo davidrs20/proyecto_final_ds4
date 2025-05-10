@@ -1,0 +1,113 @@
+/* Custom Styles for SciJournal Explorer */
+
+/* Body padding to accommodate the fixed navbar */
+body {
+    padding-bottom: 70px;
+}
+
+/* Card styling */
+.card {
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+    font-weight: 500;
+}
+
+/* Button hover effects */
+.btn:hover {
+    transform: translateY(-1px);
+    transition: transform 0.2s;
+}
+
+/* Table styling for journal lists */
+.table th {
+    font-weight: 600;
+}
+
+/* Badge styling for subject areas */
+.badge {
+    font-weight: 500;
+    padding: 0.5em 0.8em;
+}
+
+/* Animation for flash messages */
+.alert {
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Footer styling */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+/* Improve form elements */
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Breadcrumb styling */
+.breadcrumb {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+}
+
+/* Hover effect for journal rows */
+#search-results tbody tr:hover,
+#saved-journals tbody tr:hover,
+#recent-journals tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    cursor: pointer;
+}
+
+/* Make buttons in tables more compact */
+.table .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+/* Improve modal appearance */
+.modal-content {
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Custom styles for DataTables */
+.dataTables_wrapper .dataTables_filter input {
+    margin-left: 0.5em;
+    border-radius: 0.25rem;
+    border: 1px solid var(--bs-border-color);
+    padding: 0.375rem 0.75rem;
+}
+
+.dataTables_wrapper .dataTables_length select {
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--bs-border-color);
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 768px) {
+    .table-responsive {
+        border: 0;
+    }
+    
+    .card-title {
+        font-size: 1.25rem;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+}
