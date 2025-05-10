@@ -54,10 +54,14 @@ def scrape_journal_data(url):
 
     # Obtener Subject Area and Category
     try:
-        td = soup.find('td', string="Subject Area and Category")
-        if td:
-            next_td = td.find_next_sibling('h2')
-            subject_area_category = ', '.join(a.text.strip() for a in next_td.find_all('a')) if next_td else None
+        section = soup.find("h2", string="Subject Area and Category")
+        if section:
+            table = section.find_next("table")
+            if table:
+                items = table.find_all("td")
+                subject_area_category = ', '.join(td.get_text(strip=True) for td in items if td)
+            else:
+                subject_area_category = None
         else:
             subject_area_category = None
     except:
