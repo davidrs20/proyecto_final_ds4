@@ -57,7 +57,6 @@ def explorar(letra=None):
         revistas_filtradas = {}
     return render_template("explorar.html", letras='abcdefghijklmnopqrstuvwxyz', revistas=revistas_filtradas, letra=letra)
 
-
 @app.route("/buscar")
 def buscar():
     q = request.args.get("q", "").strip().lower()
@@ -73,7 +72,6 @@ def buscar():
         }
 
     return render_template("resultados.html", resultados=resultados, query=q)
-
 
 
 @app.route("/revista/<nombre_revista>")
