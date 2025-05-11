@@ -12,7 +12,6 @@
     {% endfor %}
 </div>
 
-
 <!-- Si se ha seleccionado una letra, mostrar las revistas correspondientes -->
 {% if letra %}
     <h2>Revistas que empiezan con "{{ letra.upper() }}"</h2>
@@ -33,16 +32,37 @@
                     
                     <td>
                         {% set publishers = info.publisher if info.publisher else "" %}
-                        {% for catalogo in publishers.split(',') if catalogo.strip() %}
-                            <a href="{{ url_for('catalogo', catalogo=catalogo.strip()) }}">{{ catalogo.strip() }}</a><br>
-                        {% endfor %}
+                        {% if publishers %}
+                            {% if publishers is string %}
+                                <a href="{{ url_for('catalogo', catalogo=publishers) }}">{{ publishers }}</a><br>
+                            {% else %}
+                                {% for catalogo in publishers %}
+                                    <a href="{{ url_for('catalogo', catalogo=catalogo) }}">{{ catalogo }}</a><br>
+                                {% endfor %}
+                            {% endif %}
+                        {% else %}
+                            <span>No disponible</span>
+                        {% endif %}
                     </td>
 
                     <td>
-                        {% set areas = info.subject_area_category if info.subject_area_category else "" %}
-                        {% for area in areas.split(',') if area.strip() %}
-                            <a href="{{ url_for('area_detalle', nombre_area=area.strip()) }}">{{ area.strip() }}</a><br>
-                        {% endfor %}
+                        {% set areas = info.subjet_area_and_category if info.subjet_area_and_category else "" %}
+                        {% if areas %}
+                            {% if areas is string %}
+                                <a href="{{ url_for('area_detalle', nombre_area=areas) }}">{{ areas }}</a><br>
+                            {% else %}
+                                {% for area_general, subcategorias in areas.items() %}
+                                    <a href="{{ url_for('area_detalle', nombre_area=area_general) }}">{{ area_general }}</a><br>
+                                    {% if subcategorias %}
+                                        {% for subcategoria in subcategorias %}
+                                            <a href="{{ url_for('area_detalle', nombre_area=subcategoria) }}">{{ subcategoria }}</a><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% else %}
+                            <span>No disponible</span>
+                        {% endif %}
                     </td>
 
                     <td>{{ info.get('h_index', 'N/A') }}</td>
