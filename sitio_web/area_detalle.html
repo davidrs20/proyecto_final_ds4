@@ -17,7 +17,8 @@
     <tbody>
         {% for nombre, info in revistas.items() %}
         <tr>
-            <td><a href="{{ info.url }}" target="_blank">{{ nombre }}</a></td>
+            <!-- Enlace para redirigir al detalle de la revista -->
+            <td><a href="{{ url_for('revista_detalle', nombre_revista=nombre) }}">{{ nombre }}</a></td>
             <td>{{ info.h_index }}</td>
         </tr>
         {% endfor %}

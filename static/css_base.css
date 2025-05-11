@@ -13,6 +13,13 @@ body {
     padding: 0;
 }
 
+.marca-de-agua {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0.1;
+    z-index: 0;
+}
 .container {
     padding: 20px;
     background-color: white;

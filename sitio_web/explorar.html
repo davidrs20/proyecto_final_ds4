@@ -40,8 +40,10 @@
 
                     <td>
                         {% set areas = info.subject_area_category if info.subject_area_category else "" %}
-                        {% for area in areas.split(',') if area.strip() %}
-                            <a href="{{ url_for('area_detalle', nombre_area=area.strip()) }}">{{ area.strip() }}</a><br>
+                        {% for area in areas.split(',') %}
+                            {% if area.strip() %}
+                                <a href="{{ url_for('area_detalle', nombre_area=area.strip()) }}">{{ area.strip() }}</a><br>
+                            {% endif %}
                         {% endfor %}
                     </td>
 

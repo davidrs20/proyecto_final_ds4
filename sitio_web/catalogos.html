@@ -2,10 +2,22 @@
 {% block title %}Catálogos disponibles{% endblock %}
 
 {% block content %}
-<h2>Catálogos disponibles</h2>
-<ul>
-    {% for catalogo in catalogos %}
-    <li><a href="{{ url_for('catalogo', catalogo=catalogo) }}">{{ catalogo }}</a></li>
-    {% endfor %}
-</ul>
+<div class="container mt-4">
+    <h2>Catálogos disponibles</h2>
+
+    <!-- Formulario de búsqueda local -->
+    <form class="mb-4" action="{{ url_for('buscar_catalogo') }}" method="get">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Buscar catálogo...">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </form>
+
+    <!-- Lista de catálogos -->
+    <ul>
+        {% for catalogo in catalogos %}
+        <li><a href="{{ url_for('catalogo', catalogo=catalogo) }}">{{ catalogo }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
