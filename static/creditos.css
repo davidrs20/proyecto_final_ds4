@@ -28,7 +28,7 @@ h1 {
 .card-title {
     font-size: 1.25rem;
     font-weight: bold;
-    color: var(--unison-red);
+    color: var(--unison-orange);
 }
 
 /* Estilo para la descripción debajo del nombre */

@@ -1,8 +1,8 @@
 /* Estilos generales */
 :root {
     --unison-orange: #ee7614;
-    --unison-yellow: #ffcc00;
-    --unison-blue: #0e0090;
+    --unison-yellow: #e5c545;
+    --unison-blue: #1302b0;
     --white: #ffffff;
 }
 
@@ -22,7 +22,7 @@ body {
 
 /* Barra de navegación */
 .navbar {
-    background-color: var(--unison-red);
+    background-color: var(--unison-orange);
 }
 
 .navbar a, .navbar-brand, .nav-link {
@@ -49,7 +49,7 @@ body {
 
 /* Estilo de los bloques de contenido */
 h1, h2, h3, h4 {
-    color: var(--unison-blue);
+    color: var(--unison-orange);
 }
 
 h1 {
@@ -87,7 +87,7 @@ p {
 }
 
 .table th {
-    background-color: var(--unison-red);
+    background-color: var(--unison-orange);
     color: white;
 }
 
@@ -103,7 +103,7 @@ p {
 footer {
     text-align: center;
     padding: 1rem;
-    background-color: var(--unison-blue);
+    background-color: var(--unison-orange);
     color: white;
     position: fixed;
     width: 100%;
@@ -118,7 +118,7 @@ footer {
 }
 
 .card-header {
-    background-color: var(--unison-blue);
+    background-color: var(--unison-orange);
     color: white;
     font-size: 1.25rem;
     padding: 15px;
@@ -138,7 +138,7 @@ footer p {
 /* Estilo para el encabezado principal */
 h1 {
     font-size: 2.5rem;
-    color: var(--unison-blue);
+    color: var(--unison-orange);
     font-weight: bold;
     margin-bottom: 1.5rem;
 }
@@ -164,7 +164,7 @@ ul li {
 }
 
 ul li strong {
-    color: var(--unison-red);
+    color: var(--unison-orange);
     font-weight: bold;
 }
 
@@ -180,7 +180,7 @@ ul li strong {
 
 /* Estilo para las cajas de texto y botones */
 button {
-    background-color: var(--unison-red);
+    background-color: var(--unison-orange);
     color: white;
     border: none;
     padding: 10px 20px;
