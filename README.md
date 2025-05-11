@@ -66,5 +66,5 @@ A cada revista que se ingrese, en los detalles aparece el botón de guardar revi
 
 ### Extras:
 - Agregar un login con user y password, que permita a los usuarios guardar o salvar revistas que han visitado. Cada usuario podrá ver solo las revistas que ella o él ha        guardado. Utilizar sesiones o cookies. 
-- Agregar un logotipo con nombre del sistema / página 
+- Agregar un logotipo con nombre del sistema / página (FONDO)
 - Agregar un campo o llave "ultima_visita" que cuente con fecha de última visita a scimagojr.com, si la fecha es mayor a 1 mes (u otro periodo), que el sistema actualice la información. 
