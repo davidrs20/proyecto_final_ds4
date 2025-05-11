@@ -1,25 +1,42 @@
 {% extends "base.html" %}
 
-{% block title %}Revistas en {{ area }}{% endblock %}
+{% block title %}Revistas del área: {{ area }}{% endblock %}
 
-{% block body %}
+{% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4 text-unison">Revistas en {{ area }}</h1>
-
-    <div class="row g-4">
-        {% for revista in revistas %}
-        <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <h5 class="card-title">{{ revista.nombre }}</h5>
-                    <p class="card-text">{{ revista.descripcion }}</p>
-                    <a href="{{ url_for('detalle_revista', nombre_revista=revista.nombre) }}" class="btn btn-unison btn-sm mt-3">
-                        Ver Detalles
-                    </a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+    <h2>Revistas del área: {{ area }}</h2>
+    {% if revistas %}
+        <table class="table table-bordered table-hover mt-3">
+            <thead class="table-light">
+                <tr>
+                    <th>Nombre</th>
+                    <th>País</th>
+                    <th>SJR</th>
+                    <th>H-Index</th>
+                    <th>Tipo</th>
+                    <th>Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for revista in revistas %}
+                <tr>
+                    <td>{{ revista.nombre }}</td>
+                    <td>{{ revista.get('country', 'Desconocido') }}</td>
+                    <td>{{ revista.get('sjr', 'N/A') }}</td>
+                    <td>{{ revista.get('h_index', 'N/A') }}</td>
+                    <td>{{ revista.get('type', 'N/A') }}</td>
+                    <td>
+                        <a href="{{ url_for('revista_detalle', nombre_revista=revista.nombre) }}" class="btn btn-sm btn-primary">
+                            Ver detalles
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="mt-3">No se encontraron revistas para esta área.</p>
+    {% endif %}
+    <a href="{{ url_for('area') }}" class="btn btn-secondary mt-4">← Volver a áreas</a>
 </div>
 {% endblock %}

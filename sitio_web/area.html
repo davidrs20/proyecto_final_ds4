@@ -1,24 +1,26 @@
+<!-- area.html -->
 {% extends "base.html" %}
 
-{% block title %}Áreas de Conocimiento{% endblock %}
+{% block title %}Áreas de las Revistas{% endblock %}
 
-{% block body %}
-<div class="container mt-4">
-    <h1 class="mb-4 text-unison">Áreas de Conocimiento</h1>
+{% block content %}
+    <h1>Áreas de las Revistas</h1>
+    <p>Selecciona un área para explorar las revistas correspondientes.</p>
     
-    <div class="row g-4">
-        {% for area in areas %}
-        <div class="col-md-4">
-            <div class="card card-feature h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <h3 class="h4 card-title text-unison">{{ area }}</h3>
-                    <a href="{{ url_for('ver_area', nombre_area=area) }}" class="btn btn-unison btn-sm mt-3">
-                        Ver Revistas <i class="bi bi-arrow-right ms-2"></i>
-                    </a>
-                </div>
-            </div>
+    <form action="{{ url_for('explorar') }}" method="get">
+        <div class="mb-3">
+            <label for="area" class="form-label">Selecciona un área</label>
+            <select class="form-select" name="area" id="area" required>
+                <option value="">-- Selecciona un área --</option>
+                {% for area in areas %}
+                    <option value="{{ area }}" {% if area == request.args.get('area') %}selected{% endif %}>
+                        {{ area }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
-        {% endfor %}
-    </div>
-</div>
+        <button type="submit" class="btn btn-primary">Explorar</button>
+    </form>
+
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Volver al inicio</a>
 {% endblock %}
