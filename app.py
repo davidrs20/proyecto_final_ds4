@@ -22,7 +22,6 @@ def area():
                     areas.add(area)
     return render_template("area.html", areas=sorted(areas))
 
-
 @app.route("/area/<nombre_area>")
 def area_detalle(nombre_area):
     resultados = {}
@@ -31,7 +30,6 @@ def area_detalle(nombre_area):
         if categorias and nombre_area.lower() in categorias.lower():
             resultados[nombre] = info
     return render_template("area_detalle.html", area=nombre_area, resultados=resultados)
-
 
 @app.route("/catalogos")
 def catalogos():
@@ -46,7 +44,6 @@ def catalogo(catalogo):
     revistas_en_catalogo = {nombre: info for nombre, info in revistas.items() if info.get("publisher") == catalogo}
     
     return render_template("revistas_en_catalogo.html", catalogo=catalogo, revistas=revistas_en_catalogo)
-
 
 @app.route("/explorar")
 @app.route("/explorar/<letra>")
