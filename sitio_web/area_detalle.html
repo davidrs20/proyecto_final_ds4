@@ -1,37 +1,34 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ area }}{% endblock %}
-
 {% block content %}
-<h2>Revistas en el área: {{ area }}</h2>
+  <div class="container mt-4">
+    <h2>Revistas en el Área: {{ area }}</h2>
 
-<input type="text" id="busqueda" placeholder="Buscar revista..." class="form-control mb-3">
-
-<table class="table table-striped" id="tablaRevistas">
-    <thead>
-        <tr>
-            <th>Título</th>
-            <th>H-Index</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for nombre, info in revistas.items() %}
-        <tr>
-            <td><a href="{{ info.url }}" target="_blank">{{ nombre }}</a></td>
-            <td>{{ info.h_index }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<script>
-document.getElementById('busqueda').addEventListener('keyup', function() {
-    var filtro = this.value.toLowerCase();
-    var filas = document.querySelectorAll('#tablaRevistas tbody tr');
-    filas.forEach(function(fila) {
-        var texto = fila.innerText.toLowerCase();
-        fila.style.display = texto.includes(filtro) ? '' : 'none';
-    });
-});
-</script>
+    {% if revistas %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Área</th>
+            <th>Enlace</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for revista in revistas %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ revista['title'] }}</td>
+              <td>{{ revista.get('subject_area_category', 'Sin área') }}</td>
+              <td><a href="{{ revista['link'] }}" target="_blank">Ir a la revista</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-warning" role="alert">
+        No se encontraron revistas para esta área.
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

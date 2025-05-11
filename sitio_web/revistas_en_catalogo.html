@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Revistas en el catálogo "{{ catalogo }}"</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>H-Index</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nombre, info in revistas.items() %}
+                <tr>
+                    <td><a href="{{ url_for('revista_detalle', nombre_revista=nombre) }}">{{ nombre }}</a></td>
+                    <td>{{ info.get('h_index', 'N/A') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Catálogos disponibles{% endblock %}
+
+{% block content %}
+<h2>Catálogos disponibles</h2>
+<ul>
+    {% for catalogo in catalogos %}
+    <li><a href="{{ url_for('catalogo', catalogo=catalogo) }}">{{ catalogo }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

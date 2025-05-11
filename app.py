@@ -12,48 +12,53 @@ def index():
 
 @app.route("/area")
 def area():
-    # Obtener lista única de áreas
-    areas = sorted({info.get("subject_area_category", "Sin área") for info in revistas.values()})
-    return render_template("area.html", areas=areas)
+    areas = set()
+    for info in revistas.values():
+        categorias = info.get("subject_area_category", "")
+        if categorias:
+            for parte in categorias.split(","):
+                area = parte.strip()
+                if area and not area.isdigit() and "Q" not in area:
+                    areas.add(area)
+    return render_template("area.html", areas=sorted(areas))
+
 
 @app.route("/area/<nombre_area>")
-def ver_area(nombre_area):
-    # Filtra las revistas según el área
-    revistas_area = [
-        {"nombre": nombre, **info}
-        for nombre, info in revistas.items()
-        if info.get("subject_area_category", "").lower() == nombre_area.lower()
-    ]
-    return render_template("revistas_por_area.html", area=nombre_area, revistas=revistas_area)
-
-@app.route("/revista/<nombre_revista>")
-def detalle_revista(nombre_revista):
-    info = revistas.get(nombre_revista)
-    if not info:
-        return "Revista no encontrada", 404
-    return render_template("detalle_revista.html", nombre=nombre_revista, info=info)
+def area_detalle(nombre_area):
+    resultados = {}
+    for nombre, info in revistas.items():
+        categorias = info.get("subject_area_category", "")
+        if categorias and nombre_area.lower() in categorias.lower():
+            resultados[nombre] = info
+    return render_template("area_detalle.html", area=nombre_area, resultados=resultados)
 
 
 @app.route("/catalogos")
 def catalogos():
-    # Asumimos que "catalogo" se refiere a publisher o tipo
-    return render_template("catalogos.html", revistas=revistas)
+    # Obtener todos los catálogos únicos (publisher) de las revistas
+    catálogos = set(revista["publisher"] for revista in revistas.values() if revista.get("publisher"))
+    
+    return render_template("catalogos.html", catalogos=catálogos)
+
+@app.route("/catalogo/<catalogo>")
+def catalogo(catalogo):
+    # Filtrar las revistas que pertenecen a este catálogo (publisher)
+    revistas_en_catalogo = {nombre: info for nombre, info in revistas.items() if info.get("publisher") == catalogo}
+    
+    return render_template("revistas_en_catalogo.html", catalogo=catalogo, revistas=revistas_en_catalogo)
+
 
 @app.route("/explorar")
-def explorar():
-    area = request.args.get("area", "").lower()  # El área puede ser vacía si no se selecciona.
-    if area:
-        # Filtra las revistas por el área seleccionado
-        revistas_filtradas = [
-            {"nombre": nombre, **info} 
-            for nombre, info in revistas.items() 
-            if area in info.get("subject_area_category", "").lower()
-        ]
+@app.route("/explorar/<letra>")
+def explorar(letra=None):
+    if letra:
+        revistas_filtradas = {
+            nombre: info for nombre, info in revistas.items()
+            if nombre.lower().startswith(letra.lower())
+        }
     else:
-        # Si no hay área, muestra todas las revistas
-        revistas_filtradas = [{"nombre": nombre, **info} for nombre, info in revistas.items()]
-    
-    return render_template("explorar.html", revistas=revistas_filtradas, area=area)
+        revistas_filtradas = {}
+    return render_template("explorar.html", letras='abcdefghijklmnopqrstuvwxyz', revistas=revistas_filtradas, letra=letra)
 
 
 @app.route("/buscar")
@@ -71,8 +76,6 @@ def buscar():
         }
 
     return render_template("resultados.html", resultados=resultados, query=q)
-
-
 
 @app.route("/revista/<nombre_revista>")
 def revista_detalle(nombre_revista):
