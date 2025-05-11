@@ -6,7 +6,7 @@
 <h2>Revistas por Área</h2>
 <ul>
     {% for area in areas %}
-    <li><a href="/area/{{ area }}">{{ area }}</a></li>
+        <li><a href="{{ url_for('area_detalle', nombre_area=area) }}">{{ area }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}

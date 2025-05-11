@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ area }}{% endblock %}
+
+{% block content %}
+<h2>Revistas en el área: {{ area }}</h2>
+
+<input type="text" id="busqueda" placeholder="Buscar revista..." class="form-control mb-3">
+
+<table class="table table-striped" id="tablaRevistas">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>H-Index</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for nombre, info in revistas.items() %}
+        <tr>
+            <td><a href="{{ info.url }}" target="_blank">{{ nombre }}</a></td>
+            <td>{{ info.h_index }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+document.getElementById('busqueda').addEventListener('keyup', function() {
+    var filtro = this.value.toLowerCase();
+    var filas = document.querySelectorAll('#tablaRevistas tbody tr');
+    filas.forEach(function(fila) {
+        var texto = fila.innerText.toLowerCase();
+        fila.style.display = texto.includes(filtro) ? '' : 'none';
+    });
+});
+</script>
+{% endblock %}
