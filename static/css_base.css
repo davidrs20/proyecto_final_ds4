@@ -1,0 +1,214 @@
+/* Estilos generales */
+:root {
+    --unison-red: #c8102e;
+    --unison-yellow: #ffcc00;
+    --unison-blue: #0033a0;
+    --white: #ffffff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Barra de navegación */
+.navbar {
+    background-color: var(--unison-red);
+}
+
+.navbar a, .navbar-brand, .nav-link {
+    color: white !important;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 20px;
+}
+
+.navbar-brand img {
+    height: 40px;
+    border-radius: 5px;
+}
+
+/* Estilo para la barra de búsqueda */
+.navbar .form-control {
+    max-width: 250px;
+}
+
+.navbar .btn {
+    margin-left: 10px;
+}
+
+/* Logo en la esquina superior derecha */
+img {
+    border-radius: 5px;
+}
+
+/* Estilo de los bloques de contenido */
+h1, h2, h3, h4 {
+    color: var(--unison-blue);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+
+p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Estilos específicos para las tablas */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.table th {
+    background-color: var(--unison-red);
+    color: white;
+}
+
+.table td {
+    background-color: #f9f9f9;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo para el pie de página */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--unison-blue);
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Estilo para las tarjetas (si es necesario) */
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.card-header {
+    background-color: var(--unison-blue);
+    color: white;
+    font-size: 1.25rem;
+    padding: 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+.card-body {
+    padding: 15px;
+    background-color: white;
+}
+
+/* Otros estilos de diseño */
+footer p {
+    font-size: 0.9rem;
+}
+
+/* Estilo para el encabezado principal */
+h1 {
+    font-size: 2.5rem;
+    color: var(--unison-blue);
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+/* Estilo para los párrafos */
+p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Estilo para las listas */
+ul {
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+ul li {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+ul li strong {
+    color: var(--unison-red);
+    font-weight: bold;
+}
+
+/* Estilo para el contenedor principal de la página */
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Estilo para las cajas de texto y botones */
+button {
+    background-color: var(--unison-red);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--unison-yellow);
+    color: var(--unison-blue);
+}
+
+/* Estilo para el bloque de bienvenida */
+section.bienvenida {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Estilo para los iconos o imágenes si se utilizan */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
