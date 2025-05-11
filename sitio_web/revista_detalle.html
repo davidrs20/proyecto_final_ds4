@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ nombre }} - Detalles de la Revista{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-primary">{{ nombre }}</h1>
+
+<div class="card shadow-lg">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <p><strong>H-Index:</strong> {{ info.h_index }}</p>
+                <p><strong>Área(s) temática(s):</strong></p>
+                <ul>
+                    {% for area in info.subject_area_category.split(',') %}
+                        <li>{{ area.strip() }}</li>
+                    {% endfor %}
+                </ul>
+                <p><strong>Editorial:</strong> {{ info.publisher }}</p>
+                <p><strong>ISSN:</strong> {{ info.issn }}</p>
+                <p><strong>Tipo de publicación:</strong> {{ info.publication_type }}</p>
+                {% if info.site %}
+                    <p><strong>Sitio oficial:</strong> 
+                        <a href="{{ info.site }}" target="_blank">{{ info.site }}</a>
+                    </p>
+                {% endif %}
+                {% if info.url %}
+                    <p><strong>Ver en Scimago:</strong> 
+                        <a href="{{ info.url }}" target="_blank">{{ info.url }}</a>
+                    </p>
+                {% endif %}
+            </div>
+            <div class="col-md-4 text-center">
+                {% if info.widget %}
+                    <img src="{{ info.widget }}" alt="SJR Widget" class="img-fluid rounded">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary mt-4">← Volver al inicio</a>
+{% endblock %}

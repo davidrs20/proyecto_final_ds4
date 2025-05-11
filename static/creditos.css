@@ -1,15 +1,9 @@
-:root {
-    --main-orange: #ee7614;
-    --soft-blue: #0e0090;
-    --light-orange: #fef4dc;
-}
-
 /* Estilo general */
 h1 {
     font-family: 'Arial', sans-serif;
     font-size: 2.5rem;
     font-weight: bold;
-    color: var(--soft-blue);
+    color: var(--unison-blue);
 }
 
 /* Estilo para las tarjetas */
@@ -25,7 +19,7 @@ h1 {
 /* Estilo para las imágenes */
 .card-img-top {
     height: 200px;
-    object-fit: cover;
+    object-fit: cover; /* Hace que la imagen ocupe toda la área de la imagen */
     margin-top: 20px;
     margin-bottom: 15px;
 }
@@ -34,7 +28,7 @@ h1 {
 .card-title {
     font-size: 1.25rem;
     font-weight: bold;
-    color: var(--main-orange);
+    color: var(--unison-red);
 }
 
 /* Estilo para la descripción debajo del nombre */
@@ -52,7 +46,7 @@ h1 {
 
 /* Foco en la tarjeta */
 .card-body:hover {
-    background-color: var(--light-orange);
+    background-color: var(--unison-yellow);
 }
 
 /* Efecto al pasar el ratón por encima de las tarjetas */
@@ -64,5 +58,5 @@ h1 {
 
 .card-body p {
     font-style: italic;
-    color: var(--soft-blue);
+    color: var(--unison-blue);
 }

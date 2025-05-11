@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Explorar Revistas</h2>
+
+  <div>
+    <h4>Seleccione una letra para ver las revistas que comienzan con esa letra:</h4>
+    <div class="abc">
+      {% for letra in letras %}
+        <a href="{{ url_for('explorar', letra=letra) }}" class="btn btn-link">{{ letra.upper() }}</a>
+      {% endfor %}
+    </div>
+
+    {% if letra %}
+      <h4>Revistas que comienzan con la letra "{{ letra.upper() }}":</h4>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Catálogos</th>
+            <th>Áreas</th>
+            <th>H-Index</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for nombre, revista in revistas.items() %}
+            <tr>
+              <td><a href="{{ url_for('revista_detalle', nombre_revista=nombre) }}">{{ nombre }}</a></td>
+              <td>
+                {% if revista.get('publisher') %}
+                  {% for catalogo in revista['publisher'].split(',') %}
+                    <a href="{{ url_for('catalogo', catalogo=catalogo.strip()) }}">{{ catalogo.strip() }}</a><br>
+                  {% endfor %}
+                {% else %}
+                  No disponible
+                {% endif %}
+              </td>
+              <td>
+                {% if revista.get('subject_area_category') %}
+                  {% for area in revista['subject_area_category'].split(',') %}
+                    <a href="{{ url_for('area_detalle', nombre_area=area.strip()) }}">{{ area.strip() }}</a><br>
+                  {% endfor %}
+                {% else %}
+                  No disponible
+                {% endif %}
+              </td>
+              <td>{{ revista.get('h_index', 'No disponible') }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Selecciona una letra para ver las revistas.</p>
+    {% endif %}
+  </div>
+
+{% endblock %}

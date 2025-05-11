@@ -1,31 +1,32 @@
+/* Estilos generales */
 :root {
-    --main-orange: #ee7614;
-    --soft-blue: #0e0090;
-    --light-orange: #fef4dc;
+    --unison-orange: #ee7614;
+    --unison-yellow: #ffcc00;
+    --unison-blue: #0e0090;
     --white: #ffffff;
 }
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f9f9;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
 }
 
 .container {
     padding: 20px;
-    background-color: var(--white);
+    background-color: white;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Barra de navegación */
 .navbar {
-    background-color: var(--main-orange);
+    background-color: var(--unison-red);
 }
 
 .navbar a, .navbar-brand, .nav-link {
-    color: var(--white) !important;
+    color: white !important;
 }
 
 .navbar-nav .nav-item {
@@ -37,6 +38,7 @@ body {
     border-radius: 5px;
 }
 
+/* Estilo para la barra de búsqueda */
 .navbar .form-control {
     max-width: 250px;
 }
@@ -45,15 +47,14 @@ body {
     margin-left: 10px;
 }
 
-/* Encabezados */
+/* Estilo de los bloques de contenido */
 h1, h2, h3, h4 {
-    color: var(--soft-blue);
+    color: var(--unison-blue);
 }
 
 h1 {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
-    font-weight: bold;
 }
 
 h2 {
@@ -66,15 +67,13 @@ h3 {
     margin-bottom: 0.8rem;
 }
 
-/* Párrafos */
 p {
-    font-size: 1.1rem;
-    color: #444;
+    font-size: 1rem;
+    color: #555;
     line-height: 1.6;
-    margin-bottom: 20px;
 }
 
-/* Tablas */
+/* Estilos específicos para las tablas */
 .table {
     width: 100%;
     margin-top: 20px;
@@ -88,39 +87,39 @@ p {
 }
 
 .table th {
-    background-color: var(--main-orange);
+    background-color: var(--unison-red);
     color: white;
 }
 
 .table td {
-    background-color: #fafafa;
+    background-color: #f9f9f9;
 }
 
 .table-hover tbody tr:hover {
-    background-color: #eef7f7;
+    background-color: #f1f1f1;
 }
 
-/* Footer */
+/* Estilo para el pie de página */
 footer {
     text-align: center;
     padding: 1rem;
-    background-color: var(--soft-blue);
-    color: var(--white);
+    background-color: var(--unison-blue);
+    color: white;
     position: fixed;
     width: 100%;
     bottom: 0;
 }
 
-/* Cards */
+/* Estilo para las tarjetas (si es necesario) */
 .card {
     border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px 0;
 }
 
 .card-header {
-    background-color: var(--soft-blue);
-    color: var(--white);
+    background-color: var(--unison-blue);
+    color: white;
     font-size: 1.25rem;
     padding: 15px;
     border-radius: 5px 5px 0 0;
@@ -131,37 +130,28 @@ footer {
     background-color: white;
 }
 
-/* Botones */
-button {
-    background-color: var(--main-orange);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+/* Otros estilos de diseño */
+footer p {
+    font-size: 0.9rem;
 }
 
-button:hover {
-    background-color: var(--soft-blue);
-    color: white;
+/* Estilo para el encabezado principal */
+h1 {
+    font-size: 2.5rem;
+    color: var(--unison-blue);
+    font-weight: bold;
+    margin-bottom: 1.5rem;
 }
 
-/* Bienvenida */
-section.bienvenida {
-    margin-bottom: 30px;
-    text-align: center;
+/* Estilo para los párrafos */
+p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
-/* Imágenes */
-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-/* Listas */
+/* Estilo para las listas */
 ul {
     padding-left: 20px;
     margin-bottom: 20px;
@@ -174,6 +164,46 @@ ul li {
 }
 
 ul li strong {
-    color: var(--main-orange);
+    color: var(--unison-red);
     font-weight: bold;
+}
+
+/* Estilo para el contenedor principal de la página */
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Estilo para las cajas de texto y botones */
+button {
+    background-color: var(--unison-red);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--unison-yellow);
+    color: var(--unison-blue);
+}
+
+/* Estilo para el bloque de bienvenida */
+section.bienvenida {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Estilo para los iconos o imágenes si se utilizan */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
 }

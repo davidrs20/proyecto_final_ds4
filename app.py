@@ -1,22 +1,10 @@
 from flask import Flask, render_template, request
 import json
-import unicodedata
-
-
 
 app = Flask(__name__, template_folder="sitio_web")
 
-# Carga los datos desde el JSON
 with open("datos/json/revistas_scimagojr.json", "r", encoding="utf-8") as f:
     revistas = json.load(f)
-    print("Total revistas cargadas:", len(revistas))  # DEBUG
-
-
-# Función para normalizar cadenas (quita acentos, convierte a minúsculas, elimina espacios extras)
-def normalizar(texto):
-    if not isinstance(texto, str):
-        return ""
-    return unicodedata.normalize('NFKD', texto).encode('ascii', 'ignore').decode('utf-8').lower().strip()
 
 @app.route("/")
 def index():
@@ -24,61 +12,54 @@ def index():
 
 @app.route("/area")
 def area():
-    # Creamos una lista de áreas sin importar si son None, vacías, etc.
     areas = set()
-
     for info in revistas.values():
-        raw_area = info.get("subject_area_category")
-        area = raw_area.strip() if isinstance(raw_area, str) else ""
-        if not area:
-            areas.add("Sin área")
-        else:
-            areas.add(area)
-
-    areas = sorted(areas)
-    return render_template("area.html", areas=areas)
+        categorias = info.get("subject_area_category", "")
+        if categorias:
+            for parte in categorias.split(","):
+                area = parte.strip()
+                if area and not area.isdigit() and "Q" not in area:
+                    areas.add(area)
+    return render_template("area.html", areas=sorted(areas))
 
 
 @app.route("/area/<nombre_area>")
-def ver_area(nombre_area):
-    nombre_area_normalizado = normalizar(nombre_area)
-
-    revistas_area = []
+def area_detalle(nombre_area):
+    resultados = {}
     for nombre, info in revistas.items():
-        raw_area = info.get("subject_area_category")
-        area = raw_area.strip() if isinstance(raw_area, str) else ""
-        area_normalizada = normalizar(area) if area else normalizar("Sin área")
-        
-        if area_normalizada == nombre_area_normalizado:
-            revistas_area.append({"nombre": nombre, **info})
+        categorias = info.get("subject_area_category", "")
+        if categorias and nombre_area.lower() in categorias.lower():
+            resultados[nombre] = info
+    return render_template("area_detalle.html", area=nombre_area, resultados=resultados)
 
-    return render_template("revistas_por_area.html", area=nombre_area, revistas=revistas_area)
-
-
-@app.route("/revista/<nombre_revista>")
-def detalle_revista(nombre_revista):
-    info = revistas.get(nombre_revista)
-    if not info:
-        return "Revista no encontrada", 404
-    return render_template("detalle_revista.html", nombre=nombre_revista, info=info)
 
 @app.route("/catalogos")
 def catalogos():
-    return render_template("catalogos.html", revistas=revistas)
+    # Obtener todos los catálogos únicos (publisher) de las revistas
+    catálogos = set(revista["publisher"] for revista in revistas.values() if revista.get("publisher"))
+    
+    return render_template("catalogos.html", catalogos=catálogos)
+
+@app.route("/catalogo/<catalogo>")
+def catalogo(catalogo):
+    # Filtrar las revistas que pertenecen a este catálogo (publisher)
+    revistas_en_catalogo = {nombre: info for nombre, info in revistas.items() if info.get("publisher") == catalogo}
+    
+    return render_template("revistas_en_catalogo.html", catalogo=catalogo, revistas=revistas_en_catalogo)
+
 
 @app.route("/explorar")
-def explorar():
-    area = request.args.get("area", "").lower()
-    if area:
-        revistas_filtradas = [
-            {"nombre": nombre, **info} 
-            for nombre, info in revistas.items() 
-            if area in (info.get("subject_area_category") or "").lower()
-        ]
+@app.route("/explorar/<letra>")
+def explorar(letra=None):
+    if letra:
+        revistas_filtradas = {
+            nombre: info for nombre, info in revistas.items()
+            if nombre.lower().startswith(letra.lower())
+        }
     else:
-        revistas_filtradas = [{"nombre": nombre, **info} for nombre, info in revistas.items()]
-    
-    return render_template("explorar.html", revistas=revistas_filtradas, area=area)
+        revistas_filtradas = {}
+    return render_template("explorar.html", letras='abcdefghijklmnopqrstuvwxyz', revistas=revistas_filtradas, letra=letra)
+
 
 @app.route("/buscar")
 def buscar():
@@ -104,7 +85,6 @@ def revista_detalle(nombre_revista):
     if not info:
         return "Revista no encontrada", 404
     return render_template("revista_detalle.html", nombre=nombre_revista, info=info)
-
 
 @app.route("/creditos")
 def creditos():
