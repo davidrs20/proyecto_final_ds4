@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Créditos - Catálogo de Revistas{% endblock %}
+
+{% block content %}
+    <link href="{{ url_for('static', filename='creditos.css') }}" rel="stylesheet">
+    
+    <div class="container text-center my-5">
+        <h1 class="mb-4" style="color: var(--unison-blue);">Créditos</h1>
+        <p class="lead mb-4">Los siguientes estudiantes son los encargados del desarrollo de este sistema.</p>
+        
+        <!-- Fila de tarjetas de créditos -->
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card shadow-lg border-0 rounded">
+                    <img src="{{ url_for('static', filename='img/anonimo.png') }}" class="card-img-top rounded-circle" alt="Foto de Juan Pérez">
+                    <div class="card-body">
+                        <h5 class="card-title">Alan Hernández</h5>
+                        <p class="card-text">Alan</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow-lg border-0 rounded">
+                    <img src="{{ url_for('static', filename='img/goku.jpg') }}" class="card-img-top rounded-circle" alt="Foto de María González">
+                    <div class="card-body">
+                        <h5 class="card-title">Jesús Rosales</h5>
+                        <p class="card-text">Desarrollador Backend. Especialista en bases de datos y arquitectura de sistemas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow-lg border-0 rounded">
+                    <img src="{{ url_for('static', filename='img/shika.jpg') }}" class="card-img-top rounded-circle" alt="Foto de Carlos López">
+                    <div class="card-body">
+                        <h5 class="card-title">Ulises Tiznado</h5>
+                        <p class="card-text">Líder de Proyecto. Coordinador de desarrollo y gestión de tareas del equipo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
