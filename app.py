@@ -74,6 +74,8 @@ def buscar():
 
     return render_template("resultados.html", resultados=resultados, query=q)
 
+
+
 @app.route("/revista/<nombre_revista>")
 def revista_detalle(nombre_revista):
     info = revistas.get(nombre_revista)

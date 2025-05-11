@@ -30,6 +30,11 @@
                     <img src="{{ url_for('static', filename='img/unison_logo.png') }}" height="40" alt="Unison Logo">
                 </a>
             </div>
+            <form class="d-flex" action="{{ url_for('buscar') }}" method="get">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Buscar revista">
+            <button class="btn btn-outline-light" type="submit">Buscar</button>
+            </form>
+            
         </div>
     </nav>
 
