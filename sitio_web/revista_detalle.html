@@ -9,22 +9,30 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-8">
-                <p><strong>Área(s) temática(s):</strong></p>
-                <ul>
-                    {% for area, categorias in info.subjet_area_and_category.items() %}
-                        <li>
-                            <strong>{{ area }}</strong>
-                            <ul>
-                                {% for categoria in categorias %}
-                                    <li>{{ categoria }}</li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <p><strong>Editorial:</strong> {{ info.publisher }}</p>
-                <p><strong>ISSN:</strong> {{ info.issn }}</p>
-                <p><strong>Tipo de publicación:</strong> {{ info.publication_type }}</p>
+                {% if info.subjet_area_and_category %}
+                    <p><strong>Área(s) temática(s):</strong></p>
+                    <ul>
+                        {% for area, categorias in info.subjet_area_and_category.items() %}
+                            <li>
+                                <strong>{{ area }}</strong>
+                                <ul>
+                                    {% for categoria in categorias %}
+                                        <li>{{ categoria }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if info.publisher %}
+                    <p><strong>Editorial:</strong> {{ info.publisher }}</p>
+                {% endif %}
+                {% if info.issn %}
+                    <p><strong>ISSN:</strong> {{ info.issn }}</p>
+                {% endif %}
+                {% if info.publication_type %}
+                    <p><strong>Tipo de publicación:</strong> {{ info.publication_type }}</p>
+                {% endif %}
                 {% if info.url %}
                     <p><strong>Ver en Scimago:</strong> 
                         <a href="{{ info.url }}" target="_blank">{{ info.url }}</a>
@@ -35,10 +43,16 @@
                         <a href="{{ info.website }}" target="_blank">{{ info.website }}</a>
                     </p>
                 {% endif %}
+
+                {% if session.usuario %}
+                    <a href="{{ url_for('guardar', nombre_revista=nombre) }}" class="btn btn-success mt-3">Guardar en mis revistas</a>
+                {% else %}
+                    <p class="text-muted mt-3">Inicia sesión para guardar esta revista.</p>
+                {% endif %}
             </div>
             <div class="col-md-4 text-center">
                 {% if info.widget %}
-                        {{ info.widget | safe }}
+                    {{ info.widget | safe }}
                 {% endif %}
             </div>
         </div>

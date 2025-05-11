@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Revistas guardadas por {{ session.usuario }}</h2>
+    {% if revistas %}
+        <ul class="list-group">
+            {% for nombre, info in revistas.items() %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('revista_detalle', nombre_revista=nombre) }}">{{ nombre }}</a>
+                    <span class="text-muted"> ({{ info.publisher }})</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No has guardado ninguna revista aún.</p>
+    {% endif %}
+</div>
+{% endblock %}
