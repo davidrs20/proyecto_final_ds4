@@ -1,40 +1,18 @@
-<<<<<<< HEAD
-<!-- area.html -->
 {% extends "base.html" %}
 
 {% block title %}Áreas de las Revistas{% endblock %}
 
 {% block content %}
-    <h1>Áreas de las Revistas</h1>
-    <p>Selecciona un área para explorar las revistas correspondientes.</p>
-    
-    <form action="{{ url_for('explorar') }}" method="get">
-        <div class="mb-3">
-            <label for="area" class="form-label">Selecciona un área</label>
-            <select class="form-select" name="area" id="area" required>
-                <option value="">-- Selecciona un área --</option>
-                {% for area in areas %}
-                    <option value="{{ area }}" {% if area == request.args.get('area') %}selected{% endif %}>
-                        {{ area }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Explorar</button>
-    </form>
+<h1>Áreas de las Revistas</h1>
+<p>Selecciona un área para ver las revistas correspondientes.</p>
 
-    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Volver al inicio</a>
-=======
-{% extends 'base.html' %}
-
-{% block title %}Explorar por Área{% endblock %}
-
-{% block content %}
-<h2>Revistas por Área</h2>
 <ul>
     {% for area in areas %}
-        <li><a href="{{ url_for('area_detalle', nombre_area=area) }}">{{ area }}</a></li>
+    <li>
+        <a href="{{ url_for('area_detalle', nombre_area=area) }}">{{ area }}</a>
+    </li>
     {% endfor %}
 </ul>
->>>>>>> 3bdd251238a5c50280860056c4a8dcc9f2c9d38b
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Volver al inicio</a>
 {% endblock %}

@@ -4,23 +4,25 @@
   <div class="container mt-4">
     <h2>Revistas en el Área: {{ area }}</h2>
 
-    {% if revistas %}
+    {% if resultados %}
       <table class="table table-striped">
         <thead>
           <tr>
             <th>#</th>
             <th>Nombre</th>
             <th>Área</th>
-            <th>Enlace</th>
+            <th>H-Index</th>
+            <th>Detalles</th>
           </tr>
         </thead>
         <tbody>
-          {% for revista in revistas %}
+          {% for nombre, revista in resultados.items() %}
             <tr>
               <td>{{ loop.index }}</td>
-              <td>{{ revista['title'] }}</td>
+              <td>{{ nombre }}</td>
               <td>{{ revista.get('subject_area_category', 'Sin área') }}</td>
-              <td><a href="{{ revista['link'] }}" target="_blank">Ir a la revista</a></td>
+              <td>{{ revista.get('h_index', 'N/A') }}</td>
+              <td><a href="{{ url_for('revista_detalle', nombre_revista=nombre) }}">Ver detalles</a></td>
             </tr>
           {% endfor %}
         </tbody>
@@ -30,5 +32,6 @@
         No se encontraron revistas para esta área.
       </div>
     {% endif %}
+    <a href="{{ url_for('area') }}" class="btn btn-secondary mt-3">Volver a áreas</a>
   </div>
 {% endblock %}
