@@ -80,11 +80,21 @@ def explorar(letra=None):
         revistas_filtradas = {}
     return render_template("explorar.html", letras='abcdefghijklmnopqrstuvwxyz', revistas=revistas_filtradas, letra=letra)
 
-@app.route('/buscar')
+@app.route("/buscar")
 def buscar():
-    query = request.args.get('q', '').lower()  # Obtiene la consulta de búsqueda
-    resultados = {nombre: info for nombre, info in revistas.items() if query in nombre.lower()}
-    return render_template('resultados.html', query=query, resultados=resultados)
+    q = request.args.get("q", "").strip().lower()
+
+    if q == "":  # Si no hay búsqueda, mostramos todas las revistas
+        resultados = revistas
+    else:
+        resultados = {
+            nombre: info for nombre, info in revistas.items()
+            if q in nombre.lower()  # Compara el nombre de la revista
+            or (info.get("publisher") and q in info["publisher"].lower())  # Verifica y compara el publisher
+            or (info.get("subject_area_category") and q in info["subject_area_category"].lower())  # Verifica y compara el área temática
+        }
+
+    return render_template("resultados.html", resultados=resultados, query=q)
 
 @app.route("/revista/<nombre_revista>")
 def revista_detalle(nombre_revista):
