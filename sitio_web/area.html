@@ -1,26 +1,12 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Áreas de las Revistas{% endblock %}
+{% block title %}Explorar por Área{% endblock %}
 
 {% block content %}
-<h1>Áreas de las Revistas</h1>
-<p>Selecciona un área para ver las revistas correspondientes.</p>
-
-<!-- Formulario de búsqueda -->
-<form class="mb-4" action="{{ url_for('buscar_area') }}" method="get">
-    <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Buscar área..." />
-        <button type="submit" class="btn btn-primary">Buscar</button>
-    </div>
-</form>
-
+<h2>Revistas por Área</h2>
 <ul>
     {% for area in areas %}
-    <li>
-        <a href="{{ url_for('area_detalle', nombre_area=area) }}">{{ area }}</a>
-    </li>
+        <li><a href="{{ url_for('area_detalle', nombre_area=area) }}">{{ area }}</a></li>
     {% endfor %}
 </ul>
-
-<a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Volver al inicio</a>
 {% endblock %}
