@@ -40,9 +40,28 @@ def explorar():
 
 @app.route("/buscar")
 def buscar():
-    q = request.args.get("q", "").lower()
-    resultados = {nombre: info for nombre, info in revistas.items() if q in nombre.lower()}
+    q = request.args.get("q", "").strip().lower()
+
+    if q == "":  # Si no hay búsqueda, mostramos todas las revistas
+        resultados = revistas
+    else:
+        resultados = {
+            nombre: info for nombre, info in revistas.items()
+            if q in nombre.lower()  # Compara el nombre de la revista
+            or (info.get("publisher") and q in info["publisher"].lower())  # Verifica y compara el publisher
+            or (info.get("subject_area_category") and q in info["subject_area_category"].lower())  # Verifica y compara el área temática
+        }
+
     return render_template("resultados.html", resultados=resultados, query=q)
+
+
+
+@app.route("/revista/<nombre_revista>")
+def revista_detalle(nombre_revista):
+    info = revistas.get(nombre_revista)
+    if not info:
+        return "Revista no encontrada", 404
+    return render_template("revista_detalle.html", nombre=nombre_revista, info=info)
 
 @app.route("/creditos")
 def creditos():
