@@ -5,11 +5,19 @@
 2. Jesús David Rosales Salomón
 3. Jesús Ulises Tiznado Ruiz
 
-Se utilizó el recurso de IA para la creación de este proyecto.
+#Se utilizó el recurso de IA para la creación de este proyecto.
 
 Este proyecto permite explorar y consultar un catálogo de revistas académicas obtenidas a partir de archivos CSV y enriquecidas con información extraída del portal [SCImago Journal Rank](https://www.scimagojr.com/), mediante scraping web.
 
 La interfaz está desarrollada en **Python + Flask + Bootstrap**, siguiendo los colores y diseño institucional de la **Universidad de Sonora**.
+
+### Instalación previa de recursos
+pip install Flask
+pip install beautifulsoup4
+pip install requests
+pip install Flask-Session
+pip install Flask-Login
+pip install Flask-WTF
 
 ### Parte 1 – Generación del JSON Base
 Lee múltiples archivos CSV desde las carpetas `datos/csv/areas/` y `datos/csv/catalogos/`, y genera un archivo JSON en `datos/json/`
