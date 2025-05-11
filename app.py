@@ -12,22 +12,27 @@ def index():
 
 @app.route("/area")
 def area():
-    areas = {}
-    for nombre, info in revistas.items():
-        area = info.get("subject_area_category", "Sin área")
-        if area not in areas:
-            areas[area] = []
-        areas[area].append((nombre, info))
-    return render_template("area.html", areas=areas.keys())  
-
+    # Obtener lista única de áreas
+    areas = sorted({info.get("subject_area_category", "Sin área") for info in revistas.values()})
+    return render_template("area.html", areas=areas)
 
 @app.route("/area/<nombre_area>")
-def area_detalle(nombre_area):
-    revistas_en_area = {
-        nombre: info for nombre, info in revistas.items()
-        if nombre_area in info.get("subject_area_category", "")
-    }
-    return render_template("area_detalle.html", area=nombre_area, revistas=revistas_en_area)
+def ver_area(nombre_area):
+    # Filtra las revistas según el área
+    revistas_area = [
+        {"nombre": nombre, **info}
+        for nombre, info in revistas.items()
+        if info.get("subject_area_category", "").lower() == nombre_area.lower()
+    ]
+    return render_template("revistas_por_area.html", area=nombre_area, revistas=revistas_area)
+
+@app.route("/revista/<nombre_revista>")
+def detalle_revista(nombre_revista):
+    info = revistas.get(nombre_revista)
+    if not info:
+        return "Revista no encontrada", 404
+    return render_template("detalle_revista.html", nombre=nombre_revista, info=info)
+
 
 @app.route("/catalogos")
 def catalogos():
@@ -36,7 +41,20 @@ def catalogos():
 
 @app.route("/explorar")
 def explorar():
-    return render_template("explorar.html", revistas=revistas)
+    area = request.args.get("area", "").lower()  # El área puede ser vacía si no se selecciona.
+    if area:
+        # Filtra las revistas por el área seleccionado
+        revistas_filtradas = [
+            {"nombre": nombre, **info} 
+            for nombre, info in revistas.items() 
+            if area in info.get("subject_area_category", "").lower()
+        ]
+    else:
+        # Si no hay área, muestra todas las revistas
+        revistas_filtradas = [{"nombre": nombre, **info} for nombre, info in revistas.items()]
+    
+    return render_template("explorar.html", revistas=revistas_filtradas, area=area)
+
 
 @app.route("/buscar")
 def buscar():

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Revistas en {{ area }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-unison">Revistas en {{ area }}</h1>
+
+    <div class="row g-4">
+        {% for revista in revistas %}
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <h5 class="card-title">{{ revista.nombre }}</h5>
+                    <p class="card-text">{{ revista.descripcion }}</p>
+                    <a href="{{ url_for('detalle_revista', nombre_revista=revista.nombre) }}" class="btn btn-unison btn-sm mt-3">
+                        Ver Detalles
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

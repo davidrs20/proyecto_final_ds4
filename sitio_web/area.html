@@ -1,12 +1,24 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}Explorar por Área{% endblock %}
+{% block title %}Áreas de Conocimiento{% endblock %}
 
-{% block content %}
-<h2>Revistas por Área</h2>
-<ul>
-    {% for area in areas %}
-        <li><a href="{{ url_for('area_detalle', nombre_area=area) }}">{{ area }}</a></li>
-    {% endfor %}
-</ul>
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-unison">Áreas de Conocimiento</h1>
+    
+    <div class="row g-4">
+        {% for area in areas %}
+        <div class="col-md-4">
+            <div class="card card-feature h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <h3 class="h4 card-title text-unison">{{ area }}</h3>
+                    <a href="{{ url_for('ver_area', nombre_area=area) }}" class="btn btn-unison btn-sm mt-3">
+                        Ver Revistas <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
