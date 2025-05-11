@@ -1,9 +1,9 @@
 Proyecto final desarrollo 4
 
 Integrantes:
-1. Alan Joaquin Hernández López
-2. Jesús David Rosales Salomón
-3. Jesús Ulises Tiznado Ruiz
+1. Alan Joaquin Hernández López.
+2. Jesús David Rosales Salomón.
+3. Jesús Ulises Tiznado Ruiz.
 
 Este proyecto permite explorar y consultar un catálogo de revistas académicas obtenidas a partir de archivos CSV y enriquecidas con información extraída del portal [SCImago Journal Rank](https://www.scimagojr.com/), mediante scraping web.
 
