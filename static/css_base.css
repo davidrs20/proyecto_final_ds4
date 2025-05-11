@@ -207,3 +207,19 @@ img {
     height: auto;
     border-radius: 8px;
 }
+
+.marca-de-agua {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 500px; /* ajusta el tamaño */
+    opacity: 0.05; /* baja opacidad para que no distraiga */
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none; /* evita que bloquee clics */
+}
+
+.marca-de-agua img {
+    width: 100%;
+    height: auto;
+}
