@@ -47,11 +47,6 @@ body {
     margin-left: 10px;
 }
 
-/* Logo en la esquina superior derecha */
-img {
-    border-radius: 5px;
-}
-
 /* Estilo de los bloques de contenido */
 h1, h2, h3, h4 {
     color: var(--unison-blue);

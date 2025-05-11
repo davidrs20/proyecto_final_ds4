@@ -1,0 +1,62 @@
+/* Estilo general */
+h1 {
+    font-family: 'Arial', sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--unison-blue);
+}
+
+/* Estilo para las tarjetas */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Elevación al pasar el mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Efecto de sombra */
+}
+
+/* Estilo para las imágenes */
+.card-img-top {
+    height: 200px;
+    object-fit: cover; /* Hace que la imagen ocupe toda la área de la imagen */
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+/* Estilo de los nombres en las tarjetas */
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--unison-red);
+}
+
+/* Estilo para la descripción debajo del nombre */
+.card-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Espaciado y diseño de la fila de tarjetas */
+.row-cols-md-3 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* Foco en la tarjeta */
+.card-body:hover {
+    background-color: var(--unison-yellow);
+}
+
+/* Efecto al pasar el ratón por encima de las tarjetas */
+.card-body {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.card-body p {
+    font-style: italic;
+    color: var(--unison-blue);
+}
